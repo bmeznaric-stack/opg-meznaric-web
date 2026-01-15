@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "file": "med_pcelinjak_01.jpg",
+      "group": "med",
+      "sub": "pcelinjak",
+      "order": 1,
+      "title_hr": "MED • Pčelinjak",
+      "title_en": "HONEY • Apiary"
+    },
+    {
+      "file": "med_vrcanje_01.jpg",
+      "group": "med",
+      "sub": "vrcanje",
+      "order": 2,
+      "title_hr": "MED • Vrcanje",
+      "title_en": "HONEY • Extraction"
+    },
+    {
+      "file": "ljesnjaci_berba_04.png",
+      "group": "ljesnjaci",
+      "sub": "berba",
+      "order": 1,
+      "title_hr": "LJEŠNJACI • Berba",
+      "title_en": "HAZELNUTS • Harvest"
+    }
+{
+  "file": "bozicni_paket.jpg",
+  "group": "proba",
+  "sub": "slike",
+  "order": 3
+}
+
+  ]
+}
