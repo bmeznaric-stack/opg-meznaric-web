@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <title data-i18n="meta_title">OPG MEŽNARIĆ – Med i lješnjaci | Sračinec</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+:root{
+      --bg:#f6efe2;
+      --paper:#ffffff;
+      --ink:#1f1b16;
+      --muted:#5c534a;
+      --line:rgba(0,0,0,.10);
+      --radius:18px;
+      --shadow:0 18px 45px rgba(0,0,0,.12);
+
+      --hero-x: 50%;
+      --hero-y: 50%;
+      --hero-zoom: 1.00;
+
+      --accent: #c58a00;
+      --accent2:#2f5d3a;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(197,138,0,.12), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(47,93,58,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #fff);
+      color:var(--ink);
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto}
+
+    header{
+      position:sticky; top:0; z-index:100;
+      background:rgba(255,255,255,.92);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      max-width:1100px; margin:auto; padding:12px 20px;
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+    }
+    .brand{font-weight:900; letter-spacing:.4px; display:flex; flex-direction:column; line-height:1.1; white-space:nowrap;}
+    .brand small{font-weight:700; color:var(--muted); margin-top:3px; letter-spacing:0;}
+    nav ul{list-style:none; padding:0; margin:0; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    nav a{
+      font-weight:900; font-size:12px; letter-spacing:.6px;
+      padding:10px 12px; border-radius:999px;
+      border:1px solid transparent; color:rgba(31,27,22,.85);
+      transition:.12s ease;
+    }
+    nav a:hover{background:rgba(0,0,0,.04); border-color:var(--line); transform:translateY(-1px);}
+    nav a.active{
+      background:linear-gradient(135deg, rgba(197,138,0,.18), rgba(47,93,58,.12));
+      border-color:rgba(197,138,0,.25);
+      color:rgba(31,27,22,.95);
+    }
+
+    .hero{ padding:18px 0 26px; }
+    .hero-inner{ padding:0 20px; text-align:center; }
+    .hero-frame{
+      border-radius:20px; overflow:hidden; background:#111;
+      box-shadow:0 18px 55px rgba(0,0,0,.22);
+      border:1px solid rgba(0,0,0,.10);
+      position:relative;
+    }
+    .hero img{
+      width:100%; height:56vh; min-height:320px; max-height:560px;
+      display:block; object-fit:cover;
+      object-position: var(--hero-x) var(--hero-y);
+      transform: scale(var(--hero-zoom));
+      transform-origin: var(--hero-x) var(--hero-y);
+      background:#111;
+    }
+    .hero-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.25)); pointer-events:none;}
+    .hero h1{ margin:18px 0 10px; font-size:34px; line-height:1.15; letter-spacing:-.3px; }
+    .hero p{ margin:0 auto; max-width:820px; font-size:16px; line-height:1.7; color:var(--muted); }
+
+    .hero-cta{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:999px; border:1px solid var(--line);
+      background:rgba(255,255,255,.85);
+      font-weight:900; font-size:13px; cursor:pointer; transition:.12s ease;
+    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.95)}
+    .btn.primary{background:linear-gradient(135deg, rgba(197,138,0,.25), rgba(47,93,58,.16)); border-color:rgba(197,138,0,.25);}
+
+    .tuner{
+      margin:12px auto 0; max-width:860px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--line);
+      border-radius:16px; padding:12px 14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.14);
+      text-align:left;
+    }
+    .tuner-top{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+    .tuner-top strong{font-size:13px}
+    .tuner-top small{color:var(--muted); font-size:12px}
+    .tuner-grid{display:grid; grid-template-columns: 1fr 1fr 1fr auto; gap:10px 12px; align-items:end;}
+    .tgroup label{display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:12px; font-weight:900; margin-bottom:6px;}
+    .tgroup .val{font-variant-numeric: tabular-nums; color:var(--muted); font-weight:900;}
+    input[type="range"]{width:100%; accent-color: var(--accent);}
+    .mini{font-size:12px; font-weight:900; padding:10px 14px; border-radius:999px; border:1px solid var(--line); background:rgba(0,0,0,.03); cursor:pointer; white-space:nowrap;}
+    .mini:hover{background:rgba(0,0,0,.06)}
+    .status{
+      margin:12px auto 0; max-width:860px;
+      padding:10px 12px; border-radius:14px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--line);
+      color:#111; font-size:13px; line-height:1.45;
+      display:none; text-align:left;
+    }
+    .status code{background:#f2f2f2;padding:2px 6px;border-radius:8px}
+
+    main{padding:34px 20px}
+    .section{
+      background:var(--paper);
+      border-radius:var(--radius);
+      padding:32px;
+      box-shadow:var(--shadow);
+      margin-bottom:24px;
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .section h2{margin:0 0 12px; font-size:26px; letter-spacing:-.2px;}
+    .muted{color:var(--muted); line-height:1.7; margin:0}
+
+    .products{display:grid; grid-template-columns: 1fr 1fr; gap:18px; margin-top:14px;}
+    .card{border:1px solid var(--line); border-radius:16px; padding:18px; background:#fff; box-shadow:0 10px 25px rgba(0,0,0,.06);}
+    .card h3{margin:0 0 8px}
+    .tagrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .tag{display:inline-flex; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(197,138,0,.10); font-weight:900; font-size:12px;}
+    .tag.green{background:rgba(47,93,58,.10)}
+
+    .gallery-toolbar{display:flex; flex-direction:column; gap:10px; margin-top:14px;}
+    .pillrow{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+    .pill{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.03);
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.4px;
+      cursor:pointer;
+      transition:.12s ease;
+      user-select:none;
+    }
+    .pill:hover{background:rgba(0,0,0,.06); transform:translateY(-1px)}
+    .pill.active{
+      background:linear-gradient(135deg, rgba(197,138,0,.25), rgba(47,93,58,.16));
+      border-color:rgba(197,138,0,.25);
+    }
+    .pill.ghost{background:transparent; border-style:dashed; color:var(--muted); cursor:default; transform:none;}
+
+    .toggle{
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.85);
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.3px;
+      cursor:pointer;
+      transition:.12s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .toggle:hover{transform:translateY(-1px); background:rgba(255,255,255,.95)}
+    .toggle .dot{
+      width:10px; height:10px; border-radius:99px;
+      background:rgba(47,93,58,.35);
+      border:1px solid rgba(0,0,0,.15);
+    }
+    body.fit-cover .toggle .dot{background:rgba(197,138,0,.55);}
+
+    .gallery{display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:14px;}
+    .gitem{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background:#fff;
+      cursor:pointer;
+      box-shadow:0 10px 25px rgba(0,0,0,.06);
+      transition:.12s ease;
+    }
+    .gitem:hover{transform:translateY(-2px)}
+    .gitem img{
+      width:100%;
+      height:220px;
+      object-fit:contain;
+      background:#f6efe2;
+      display:block;
+    }
+    body.fit-cover .gitem img{
+      object-fit:cover;
+      background:transparent;
+    }
+    .gcap{
+      padding:10px 12px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .gcap-top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:baseline;
+    }
+    .gcap b{color:rgba(31,27,22,.9)}
+    .gdesc{
+      margin-top:6px;
+      font-size:13px;
+      line-height:1.5;
+      color:#4f463d;
+    }
+    .empty{
+      margin-top:14px;
+      padding:14px;
+      border-radius:14px;
+      border:1px dashed rgba(0,0,0,.15);
+      background:rgba(255,255,255,.75);
+      color:var(--muted);
+      line-height:1.6;
+      display:none;
+    }
+
+    .contact-grid{display:grid; grid-template-columns: 1fr 1fr; gap:18px; margin-top:14px;}
+    .contact{border:1px solid var(--line); border-radius:16px; padding:18px; background:#fff; box-shadow:0 10px 25px rgba(0,0,0,.06);}
+    .contact strong{display:block; margin-bottom:6px}
+    .contact a{color:var(--accent2); font-weight:900}
+    .contact a:hover{text-decoration:underline}
+    .contact .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    footer{
+      text-align:center;
+      padding:18px 20px;
+      color:var(--muted);
+      font-size:13px;
+      background:rgba(238,228,214,.75);
+      border-top:1px solid rgba(0,0,0,.06);
+    }
+
+    .lb{position:fixed; inset:0; background:rgba(0,0,0,.78); display:none; align-items:center; justify-content:center; z-index:200; padding:18px;}
+    .lb.show{display:flex}
+    .lb-inner{
+      max-width:min(1100px, 96vw);
+      max-height:90vh;
+      background:#111;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 30px 90px rgba(0,0,0,.45);
+      position:relative;
+    }
+    .lb-inner img{width:100%; height:100%; max-height:90vh; object-fit:contain; display:block; background:#111;}
+    .lb-close{
+      position:absolute; top:10px; right:10px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      font-weight:900;
+      border-radius:999px;
+      padding:10px 12px;
+      cursor:pointer;
+    }
+    .lb-close:hover{background:rgba(0,0,0,.55)}
+
+    .anchor{scroll-margin-top:90px}
+
+    @media(max-width:920px){
+      .tuner-grid{grid-template-columns: 1fr 1fr 1fr;}
+      .tuner-grid .mini{grid-column: 1 / -1; width:100%;}
+      .gallery{grid-template-columns:repeat(2, 1fr)}
+    }
+    @media(max-width:780px){
+      nav ul{gap:6px}
+      nav a{padding:9px 10px}
+      .products,.contact-grid{grid-template-columns:1fr}
+      .hero h1{font-size:28px}
+      .hero img{height:46vh; min-height:260px}
+      .gallery{grid-template-columns:1fr}
+      .gitem img{height:200px}
+    }
+/* --- i18n additions --- */
+.lang-toggle{display:inline-flex; gap:6px; align-items:center; padding:8px 10px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.85); font-weight:900; font-size:12px; letter-spacing:.6px; cursor:pointer;}
+.lang-toggle:hover{transform:translateY(-1px); background:rgba(255,255,255,.95)}
+.lang-pill{padding:4px 8px; border-radius:999px; border:1px solid transparent; color:rgba(31,27,22,.75);}
+.lang-pill.active{background:linear-gradient(135deg, rgba(197,138,0,.25), rgba(47,93,58,.16)); border-color:rgba(197,138,0,.25); color:rgba(31,27,22,.95);}
+
+/* gallery caption tweaks for descriptions */
+.gcap{display:flex; flex-direction:column; gap:6px;}
+.gcap-head{display:flex; justify-content:space-between; gap:10px;}
+.gdesc{font-size:13px; line-height:1.5; color:#4f463d;}
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">OPG MEŽNARIĆ<small data-i18n="brand_sub">Sračinec</small></div>
+    <nav aria-label="Main menu">
+      <ul>
+        <li><a class="navlink" href="#pocetna" data-i18n="nav_home">POČETNA</a></li>
+        <li><a class="navlink" href="#proizvodi" data-i18n="nav_products">PROIZVODI</a></li>
+        <li><a class="navlink" href="#galerija" data-i18n="nav_gallery">GALERIJA</a></li>
+        <li><a class="navlink" href="#kontakt" data-i18n="nav_contact">KONTAKT</a></li>
+        <li>
+          <button class="lang-toggle" id="langToggle" type="button" aria-label="Language">
+            <span class="lang-pill" id="pillHR" data-i18n="lang_button_hr">HR</span>
+            <span class="lang-pill" id="pillEN" data-i18n="lang_button_en">EN</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section id="pocetna" class="hero anchor">
+  <div class="wrap hero-inner">
+    <div class="hero-frame">
+      <img id="heroImg" alt="OPG MEŽNARIĆ – Med i lješnjaci">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="tuner">
+      <div class="tuner-top">
+        <strong data-i18n="hero_tuner_title">Podešavanje hero slike</strong>
+        <small data-i18n="hero_tuner_note">Postavke se pamte (na webu).</small>
+      </div>
+      <div class="tuner-grid">
+        <div class="tgroup">
+          <label for="posX"><span data-i18n="tuner_x">Kadar X</span> <span class="val" id="valX">50%</span></label>
+          <input id="posX" type="range" min="0" max="100" value="50">
+        </div>
+        <div class="tgroup">
+          <label for="posY"><span data-i18n="tuner_y">Kadar Y</span> <span class="val" id="valY">50%</span></label>
+          <input id="posY" type="range" min="0" max="100" value="50">
+        </div>
+        <div class="tgroup">
+          <label for="zoom"><span data-i18n="tuner_zoom">Zum</span> <span class="val" id="valZ">1.00×</span></label>
+          <input id="zoom" type="range" min="50" max="160" value="100">
+        </div>
+        <button class="mini" id="resetBtn" type="button" data-i18n="tuner_reset">Reset</button>
+      </div>
+    </div>
+
+    <div id="status" class="status">
+      <strong data-i18n="hero_missing_title">Hero slika se ne učitava.</strong><br>
+      <span data-i18n="hero_missing_text">Ne mogu pronaći hero sliku u mapi slike/ (hero.jpg, hero.png ili hero).</span>
+    </div>
+
+    <h1 data-i18n="hero_title">Domaći med i lješnjaci iz vlastite proizvodnje</h1>
+    <p data-i18n="hero_text">OPG MEŽNARIĆ je obiteljsko poljoprivredno gospodarstvo iz Sračinca, posvećeno proizvodnji prirodnog meda i uzgoju lješnjaka uz poštivanje prirode i tradicije.</p>
+
+    <div class="hero-cta">
+      <a class="btn primary" href="tel:+385913507180" data-i18n="cta_call_bozidar">Nazovi Božidara</a>
+      <a class="btn" href="mailto:bmeznaric@gmail.com?subject=Upit%20-%20OPG%20ME%C5%BDNARI%C4%86" data-i18n="cta_email">Pošalji e-mail</a>
+      <a class="btn" href="#kontakt" data-i18n="cta_contact">Kontakt</a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <section id="proizvodi" class="section anchor">
+    <h2 data-i18n="products_title">Proizvodi</h2>
+    <p class="muted" data-i18n="products_note">Za dostupnost i narudžbe najbrže je nazvati ili poslati e-mail. Web shop možemo dodati kasnije.</p>
+
+    <div class="products">
+      <div class="card">
+        <h3 data-i18n="prod_honey_title">🍯 Med</h3>
+        <p class="muted" data-i18n="prod_honey_text">Prirodni domaći med iz vlastite proizvodnje, proizveden tradicionalnim načinom bez industrijske obrade.</p>
+        <div class="tagrow">
+          <span class="tag" data-i18n="tag_domace">domaće</span>
+          <span class="tag" data-i18n="tag_prirodno">prirodno</span>
+          <span class="tag" data-i18n="tag_izravno">izravno</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="prod_hazelnut_title">🌰 Lješnjaci</h3>
+        <p class="muted" data-i18n="prod_hazelnut_text">Lješnjaci iz vlastitog uzgoja, prirodno sušeni i pažljivo pripremljeni.</p>
+        <div class="tagrow">
+          <span class="tag green" data-i18n="tag_svjeze">svježe</span>
+          <span class="tag green" data-i18n="tag_uzgoj">uzgoj</span>
+          <span class="tag green" data-i18n="tag_kvaliteta">kvaliteta</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerija" class="section anchor">
+    <h2 data-i18n="gallery_title">Galerija</h2>
+    <p class="muted" data-i18n="gallery_note">Slike idu u mapu "slike/". Format: med_podkategorija_04.png ili ljesnjaci_berba_04.png (radi i s kvačicama: lješnjaci_...).</p>
+
+    <div class="gallery-toolbar">
+      <div class="pillrow" id="groupPills"></div>
+      <div class="pillrow">
+        <div id="subPills" class="pillrow" style="gap:8px"></div>
+        <button class="toggle" id="fitToggle" type="button">
+          <span class="dot"></span>
+          <span id="fitLabel" data-i18n="gallery_view_contain">Prikaz: Bez rezanja</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="empty" id="emptyBox" data-i18n="gallery_empty">Trenutno nema slika za odabranu grupu/podkategoriju.</div>
+    <div class="gallery" id="galleryGrid"></div>
+  </section>
+
+  <section id="kontakt" class="section anchor">
+    <h2 data-i18n="contact_title">Kontakt</h2>
+    <p class="muted" data-i18n="contact_note">Slobodno nazovite ili pošaljite upit e-mailom.</p>
+
+    <div class="contact-grid">
+      <div class="contact">
+        <strong>Božidar Mežnarić</strong>
+        📞 <a href="tel:+385913507180">091 350 7180</a><br>
+        ✉️ <a href="mailto:bmeznaric@gmail.com">bmeznaric@gmail.com</a>
+        <div class="cta">
+          <a class="btn primary" href="tel:+385913507180" data-i18n="contact_call">Nazovi</a>
+          <a class="btn" href="mailto:bmeznaric@gmail.com?subject=Upit%20-%20OPG%20ME%C5%BDNARI%C4%86" data-i18n="contact_email">E-mail</a>
+        </div>
+      </div>
+
+      <div class="contact">
+        <strong>Nada Mežnarić</strong>
+        📞 <a href="tel:+385913611510">091 361 1510</a><br>
+        ✉️ <a href="mailto:nada.meznaric@gmail.com">nada.meznaric@gmail.com</a>
+        <div class="cta">
+          <a class="btn primary" href="tel:+385913611510" data-i18n="contact_call">Nazovi</a>
+          <a class="btn" href="mailto:nada.meznaric@gmail.com?subject=Upit%20-%20OPG%20ME%C5%BDNARI%C4%86" data-i18n="contact_email">E-mail</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="footerText"></footer>
+
+<div class="lb" id="lightbox" aria-hidden="true">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose" type="button">✕</button>
+    <img id="lbImg" alt="Gallery">
+  </div>
+</div>
+
+<script>
+  const ONLINE = location.protocol === "http:" || location.protocol === "https:";
+  const bust = () => ONLINE ? ("?v=" + Date.now()) : "";
+  const IMG_DIR = "slike/";
+
+  // ===== i18n =====
+  let LANG = localStorage.getItem("opg_lang") || "hr";
+  let TEXT = null;
+
+  const EMBED_HR = {"meta_title": "OPG MEŽNARIĆ – Med i lješnjaci | Sračinec", "brand_sub": "Sračinec", "nav_home": "POČETNA", "nav_products": "PROIZVODI", "nav_gallery": "GALERIJA", "nav_contact": "KONTAKT", "lang_button_hr": "HR", "lang_button_en": "EN", "hero_title": "Domaći med i lješnjaci iz vlastite proizvodnje", "hero_text": "OPG MEŽNARIĆ je obiteljsko poljoprivredno gospodarstvo iz Sračinca, posvećeno proizvodnji prirodnog meda i uzgoju lješnjaka uz poštivanje prirode i tradicije.", "cta_call_bozidar": "Nazovi Božidara", "cta_email": "Pošalji e-mail", "cta_contact": "Kontakt", "hero_tuner_title": "Podešavanje hero slike", "hero_tuner_note": "Postavke se pamte (na webu).", "tuner_x": "Kadar X", "tuner_y": "Kadar Y", "tuner_zoom": "Zum", "tuner_reset": "Reset", "hero_missing_title": "Hero slika se ne učitava.", "hero_missing_text": "Ne mogu pronaći hero sliku u mapi slike/ (hero.jpg, hero.png ili hero).", "products_title": "Proizvodi", "products_note": "Za dostupnost i narudžbe najbrže je nazvati ili poslati e-mail. Web shop možemo dodati kasnije.", "prod_honey_title": "🍯 Med", "prod_honey_text": "Prirodni domaći med iz vlastite proizvodnje, proizveden tradicionalnim načinom bez industrijske obrade.", "prod_hazelnut_title": "🌰 Lješnjaci", "prod_hazelnut_text": "Lješnjaci iz vlastitog uzgoja, prirodno sušeni i pažljivo pripremljeni.", "tag_domace": "domaće", "tag_prirodno": "prirodno", "tag_izravno": "izravno", "tag_svjeze": "svježe", "tag_uzgoj": "uzgoj", "tag_kvaliteta": "kvaliteta", "gallery_title": "Galerija", "gallery_note": "Slike idu u mapu \"slike/\". Format: med_podkategorija_04.png ili ljesnjaci_berba_04.png (radi i s kvačicama: lješnjaci_...).", "gallery_empty": "Trenutno nema slika za odabranu grupu/podkategoriju.", "gallery_view_contain": "Prikaz: Bez rezanja", "gallery_view_cover": "Prikaz: Cover", "group_honey": "MED", "group_hazelnuts": "LJEŠNJACI", "sub_all": "SVE", "sub_hint": "Dodaj slike da se pojave podkategorije", "contact_title": "Kontakt", "contact_note": "Slobodno nazovite ili pošaljite upit e-mailom.", "contact_call": "Nazovi", "contact_email": "E-mail", "footer": "© {year} OPG MEŽNARIĆ – Sračinec, Hrvatska"};
+  const EMBED_EN = {"meta_title": "OPG MEŽNARIĆ – Honey & Hazelnuts | Sračinec", "brand_sub": "Sračinec", "nav_home": "HOME", "nav_products": "PRODUCTS", "nav_gallery": "GALLERY", "nav_contact": "CONTACT", "lang_button_hr": "HR", "lang_button_en": "EN", "hero_title": "Homemade honey and hazelnuts from our own production", "hero_text": "OPG MEŽNARIĆ is a family farm from Sračinec, dedicated to producing natural honey and growing hazelnuts with respect for nature and tradition.", "cta_call_bozidar": "Call Božidar", "cta_email": "Send email", "cta_contact": "Contact", "hero_tuner_title": "Hero image settings", "hero_tuner_note": "Settings are saved (on the web).", "tuner_x": "Frame X", "tuner_y": "Frame Y", "tuner_zoom": "Zoom", "tuner_reset": "Reset", "hero_missing_title": "Hero image not loading.", "hero_missing_text": "Can't find the hero image in the folder slike/ (hero.jpg, hero.png or hero).", "products_title": "Products", "products_note": "For availability and orders, the fastest way is to call or email us. Web shop can be added later.", "prod_honey_title": "🍯 Honey", "prod_honey_text": "Natural homemade honey from our own production, prepared traditionally without industrial processing.", "prod_hazelnut_title": "🌰 Hazelnuts", "prod_hazelnut_text": "Hazelnuts from our own orchard, naturally dried and carefully prepared.", "tag_domace": "homemade", "tag_prirodno": "natural", "tag_izravno": "direct", "tag_svjeze": "fresh", "tag_uzgoj": "grown", "tag_kvaliteta": "quality", "gallery_title": "Gallery", "gallery_note": "Images go into the \"slike/\" folder. Format: med_subcategory_04.png or ljesnjaci_harvest_04.png (also supports Croatian diacritics: lješnjaci_...).", "gallery_empty": "No images for the selected group/subcategory yet.", "gallery_view_contain": "View: No crop", "gallery_view_cover": "View: Cover", "group_honey": "HONEY", "group_hazelnuts": "HAZELNUTS", "sub_all": "ALL", "sub_hint": "Add images to see subcategories", "contact_title": "Contact", "contact_note": "Feel free to call or send us an email.", "contact_call": "Call", "contact_email": "Email", "footer": "© {year} OPG MEŽNARIĆ – Sračinec, Croatia"};
+
+  function applyText(dict){
+    TEXT = dict || {};
+    const titleEl = document.querySelector("title[data-i18n='meta_title']");
+    if(titleEl && TEXT.meta_title) titleEl.textContent = TEXT.meta_title;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if(TEXT[key] !== undefined) el.textContent = TEXT[key];
+    });
+
+    const year = new Date().getFullYear();
+    const ft = document.getElementById("footerText");
+    const tpl = (TEXT.footer || "© {year} OPG MEŽNARIĆ – Sračinec, Hrvatska");
+    ft.textContent = tpl.replace("{year}", String(year));
+
+    document.documentElement.lang = LANG;
+    document.getElementById("pillHR").classList.toggle("active", LANG === "hr");
+    document.getElementById("pillEN").classList.toggle("active", LANG === "en");
+  }
+
+  async function loadText(lang){
+    try{
+      const r = await fetch(`tekst_${lang}.json` + bust());
+      if(!r.ok) throw new Error("text fetch failed");
+      applyText(await r.json());
+    }catch(e){
+      applyText(lang === "en" ? EMBED_EN : EMBED_HR);
+    }
+  }
+
+  // ===== OPISI (only in gallery) =====
+  let OPISI = {};
+  async function loadOpisi(){
+    const file = (LANG === "en") ? "opisi_en.json" : "opisi.json";
+    if(!ONLINE){ OPISI = {}; return; }
+    try{
+      const r = await fetch(file + bust());
+      if(!r.ok) { OPISI = {}; return; }
+      OPISI = (await r.json()) || {};
+    }catch(e){
+      OPISI = {};
+    }
+  }
+
+  function setLang(lang){
+    LANG = (lang === "en") ? "en" : "hr";
+    localStorage.setItem("opg_lang", LANG);
+    Promise.resolve(loadText(LANG)).then(async ()=>{
+      await loadOpisi();
+      renderGroupPills();
+      renderSubPills();
+      renderGallery();
+      const current = localStorage.getItem("opg_gallery_fit") || "contain";
+      applyFit(current);
+    });
+  }
+
+  document.getElementById("langToggle").addEventListener("click", ()=>{
+    setLang(LANG === "hr" ? "en" : "hr");
+  });
+
+  // try load texts (works on web; on file:// it will fallback)
+  loadText(LANG);
+
+  // ===== ACTIVE MENU =====
+  const navLinks = Array.from(document.querySelectorAll(".navlink"));
+  const sections = navLinks.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const id = "#" + e.target.id;
+      navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === id));
+    });
+  }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
+  sections.forEach(s => obs.observe(s));
+
+  // ===== HERO LOADER =====
+  const heroCandidates = [
+    IMG_DIR + "hero",
+    IMG_DIR + "hero.png",
+    IMG_DIR + "hero.jpg",
+    IMG_DIR + "hero.jpeg",
+    IMG_DIR + "Hero",
+    IMG_DIR + "Hero.png",
+    IMG_DIR + "Hero.jpg",
+    IMG_DIR + "Hero.jpeg"
+  ];
+  const heroImg = document.getElementById("heroImg");
+  const status = document.getElementById("status");
+  let hi = 0;
+  function tryHero(){
+    if (hi >= heroCandidates.length){
+      status.style.display = "block";
+      return;
+    }
+    heroImg.src = heroCandidates[hi++] + bust();
+  }
+  heroImg.onerror = tryHero;
+  tryHero();
+
+  // ===== HERO TUNER =====
+  const root = document.documentElement;
+  const posX = document.getElementById("posX");
+  const posY = document.getElementById("posY");
+  const zoom = document.getElementById("zoom");
+  const valX = document.getElementById("valX");
+  const valY = document.getElementById("valY");
+  const valZ = document.getElementById("valZ");
+  const resetBtn = document.getElementById("resetBtn");
+
+  function applyHero(x, y, z){
+    root.style.setProperty("--hero-x", x + "%");
+    root.style.setProperty("--hero-y", y + "%");
+    root.style.setProperty("--hero-zoom", (z/100).toFixed(2));
+    valX.textContent = x + "%";
+    valY.textContent = y + "%";
+    valZ.textContent = (z/100).toFixed(2) + "×";
+    localStorage.setItem("opg_hero_x", String(x));
+    localStorage.setItem("opg_hero_y", String(y));
+    localStorage.setItem("opg_hero_z", String(z));
+  }
+  const sx = Number(localStorage.getItem("opg_hero_x"));
+  const sy = Number(localStorage.getItem("opg_hero_y"));
+  const sz = Number(localStorage.getItem("opg_hero_z"));
+  const startX = Number.isFinite(sx) ? sx : 50;
+  const startY = Number.isFinite(sy) ? sy : 50;
+  const startZ = Number.isFinite(sz) ? sz : 100;
+  posX.value = startX; posY.value = startY; zoom.value = startZ;
+  applyHero(startX, startY, startZ);
+  function onInputHero(){ applyHero(Number(posX.value), Number(posY.value), Number(zoom.value)); }
+  posX.addEventListener("input", onInputHero);
+  posY.addEventListener("input", onInputHero);
+  zoom.addEventListener("input", onInputHero);
+  resetBtn.addEventListener("click", () => {
+    posX.value = 50; posY.value = 50; zoom.value = 100;
+    applyHero(50, 50, 100);
+  });
+
+  // ===== LIGHTBOX =====
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImg");
+  const lbClose = document.getElementById("lbClose");
+  function openLightbox(src){
+    lbImg.src = src;
+    lb.classList.add("show");
+    lb.setAttribute("aria-hidden","false");
+  }
+  function closeLightbox(){
+    lb.classList.remove("show");
+    lb.setAttribute("aria-hidden","true");
+    lbImg.src = "";
+  }
+  lbClose.addEventListener("click", closeLightbox);
+  lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+  window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeLightbox(); });
+
+  // ===== GALLERY FIT TOGGLE =====
+  const fitToggle = document.getElementById("fitToggle");
+  const fitLabel = document.getElementById("fitLabel");
+  function applyFit(mode){
+    document.body.classList.toggle("fit-cover", mode === "cover");
+    const key = (mode === "cover") ? "gallery_view_cover" : "gallery_view_contain";
+    fitLabel.textContent = (TEXT && TEXT[key]) ? TEXT[key] : ((mode === "cover") ? "Prikaz: Cover" : "Prikaz: Bez rezanja");
+    localStorage.setItem("opg_gallery_fit", mode);
+  }
+  const savedFit = localStorage.getItem("opg_gallery_fit") || "contain";
+  applyFit(savedFit);
+  fitToggle.addEventListener("click", ()=>{
+    const current = localStorage.getItem("opg_gallery_fit") || "contain";
+    applyFit(current === "cover" ? "contain" : "cover");
+  });
+
+  // ===== GALLERY SCAN =====
+  const SUB_CANDIDATES = [
+    "pcelinjak","vrcanje","pakiranje","pokloni","proizvod","razno",
+    "nasad","berba","susenje","prerada"
+  ];
+  const exts = [".jpg",".png",".jpeg",".JPG",".PNG",".JPEG"];
+  const MAX_PER_SUB = 60;
+
+  const groupPills = document.getElementById("groupPills");
+  const subPills = document.getElementById("subPills");
+  const galleryGrid = document.getElementById("galleryGrid");
+  const emptyBox = document.getElementById("emptyBox");
+
+  let state = { group: "med", sub: "sve" };
+  const savedGroup = localStorage.getItem("opg_gallery_group");
+  const savedSub = localStorage.getItem("opg_gallery_sub");
+  if (savedGroup) state.group = savedGroup;
+  if (savedSub) state.sub = savedSub;
+
+  const store = { med: {}, ljesnjaci: {} };
+
+  function prettySub(s){
+    return s.replace(/_/g," ")
+      .replace(/\b\w/g, c => c.toUpperCase())
+      .replace("Pcelinjak","Pčelinjak")
+      .replace("Susenje","Sušenje");
+  }
+  function groupLabel(g){
+    if(TEXT && g==="med") return TEXT.group_honey || "MED";
+    if(TEXT && g==="ljesnjaci") return TEXT.group_hazelnuts || "LJEŠNJACI";
+    return g.toUpperCase();
+  }
+  function addToStore(group, sub, src, meta){
+  if(!store[group][sub]) store[group][sub] = [];
+
+  const fileName = src.replace(IMG_DIR,"");
+  const order = meta && typeof meta.order === "number" ? meta.order : null;
+
+  // Ako galerija.json daje title_hr / title_en, koristimo to. Inače fallback.
+  const titleHr = meta && meta.title_hr ? String(meta.title_hr) : null;
+  const titleEn = meta && meta.title_en ? String(meta.title_en) : null;
+
+  // LANG varijabla već postoji u v7 (HR/EN switch)
+  const caption =
+    (typeof LANG !== "undefined" && LANG === "en" ? titleEn : titleHr) ||
+    `${groupLabel(group)} • ${prettySub(sub)}`;
+
+  store[group][sub].push({ src, caption, fileName, order });
+}
+
+
+  function probe(rel){
+    const alts = [rel];
+    if (rel.startsWith("ljesnjaci_")) alts.push(rel.replace("ljesnjaci_", "lješnjaci_"));
+    if (rel.startsWith("lješnjaci_")) alts.push(rel.replace("lješnjaci_", "ljesnjaci_"));
+
+    return new Promise((resolve)=>{
+      let i = 0;
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => {
+        i++;
+        if(i >= alts.length) return resolve(false);
+        img.src = (IMG_DIR + alts[i]) + bust();
+      };
+      img.src = (IMG_DIR + alts[i]) + bust();
+    });
+  }
+
+  async function findFirstFile(group, sub){
+    for (let n=1; n<=MAX_PER_SUB; n++){
+      const n2 = String(n).padStart(2,"0");
+      const candidates = [];
+      for (const ext of exts){
+        candidates.push(`${group}_${sub}_${n2}${ext}`);
+        candidates.push(`${group}_${sub}_${n}${ext}`);
+      }
+      for (const f of candidates){
+        if (await probe(f)) return { file: f, startN: n };
+      }
+    }
+    return null;
+  }
+
+  async function scanSub(group, sub){
+    const found = await findFirstFile(group, sub);
+    if(!found) return;
+    addToStore(group, sub, IMG_DIR + found.file);
+
+    let miss = 0;
+    for (let n=found.startN + 1; n<=MAX_PER_SUB; n++){
+      let ok = false;
+      const n2 = String(n).padStart(2,"0");
+      const tries = [];
+      for (const ext of exts){
+        tries.push(`${group}_${sub}_${n2}${ext}`);
+        tries.push(`${group}_${sub}_${n}${ext}`);
+      }
+      for (const f of tries){
+        if (await probe(f)){
+          addToStore(group, sub, IMG_DIR + f);
+          ok = true;
+          break;
+        }
+      }
+      if(ok) miss = 0;
+      else miss++;
+      if(miss >= 8) break;
+    }
+  }
+
+// ===== GALERIJA.JSON (bez ograničenja naziva/podkategorija) =====
+const GALLERY_JSON = "galerija.json";
+
+async function loadGalleryJson(){
+  // Na file:// Chrome često blokira fetch -> vratimo false i idemo na fallback skeniranje
+  if (location.protocol === "file:") return false;
+
+  try{
+    const r = await fetch(GALLERY_JSON + bust());
+    if(!r.ok) return false;
+
+    const data = await r.json();
+    const items = Array.isArray(data) ? data : (data && Array.isArray(data.items) ? data.items : []);
+    if(!items.length) return false;
+
+    // reset
+    store.med = {};
+    store.ljesnjaci = {};
+
+    for (const it of items){
+      if(!it || !it.file) continue;
+
+      const groupRaw = String(it.group || "").toLowerCase().trim();
+      const group = (groupRaw === "lješnjaci") ? "ljesnjaci" : groupRaw;
+      if(group !== "med" && group !== "ljesnjaci") continue;
+
+      const sub = String(it.sub || "razno").toLowerCase().trim() || "razno";
+      const src = IMG_DIR + it.file;
+
+      addToStore(group, sub, src, it);
+    }
+
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+
+  async function discover(){
+    store.med = {};
+    store.ljesnjaci = {};
+    for (const g of ["med","ljesnjaci"]){
+      for (const sub of SUB_CANDIDATES){
+        await scanSub(g, sub);
+      }
+    }
+  }
+
+  function renderGroupPills(){
+    groupPills.innerHTML = "";
+    [["med", groupLabel("med")], ["ljesnjaci", groupLabel("ljesnjaci")]].forEach(([g,label])=>{
+      const pill = document.createElement("div");
+      pill.className = "pill" + (state.group === g ? " active" : "");
+      pill.textContent = label;
+      pill.onclick = ()=>{
+        state.group = g;
+        state.sub = "sve";
+        localStorage.setItem("opg_gallery_group", state.group);
+        localStorage.setItem("opg_gallery_sub", state.sub);
+        renderGroupPills();
+        renderSubPills();
+        renderGallery();
+      };
+      groupPills.appendChild(pill);
+    });
+  }
+
+  function renderSubPills(){
+    subPills.innerHTML = "";
+
+    const all = document.createElement("div");
+    all.className = "pill" + (state.sub === "sve" ? " active" : "");
+    all.textContent = (TEXT && TEXT.sub_all) ? TEXT.sub_all : "SVE";
+    all.onclick = ()=>{
+      state.sub = "sve";
+      localStorage.setItem("opg_gallery_sub", state.sub);
+      renderSubPills();
+      renderGallery();
+    };
+    subPills.appendChild(all);
+
+    const subs = Object.keys(store[state.group] || {}).sort((a,b)=>a.localeCompare(b));
+    if(subs.length === 0){
+      const ghost = document.createElement("div");
+      ghost.className = "pill ghost";
+      ghost.textContent = (TEXT && TEXT.sub_hint) ? TEXT.sub_hint : "Dodaj slike da se pojave podkategorije";
+      subPills.appendChild(ghost);
+      return;
+    }
+    subs.forEach(s=>{
+      const pill = document.createElement("div");
+      pill.className = "pill" + (state.sub === s ? " active" : "");
+      pill.textContent = prettySub(s).toUpperCase();
+      pill.onclick = ()=>{
+        state.sub = s;
+        localStorage.setItem("opg_gallery_sub", state.sub);
+        renderSubPills();
+        renderGallery();
+      };
+      subPills.appendChild(pill);
+    });
+  }
+
+  function renderGallery(){
+    galleryGrid.innerHTML = "";
+    emptyBox.style.display = "none";
+
+    const groupData = store[state.group] || {};
+    let items = [];
+    if(state.sub === "sve"){
+      Object.values(groupData).forEach(arr => items = items.concat(arr));
+    } else {
+      items = groupData[state.sub] ? [...groupData[state.sub]] : [];
+    }
+    items.sort((a,b)=>{
+      const ao = (a.order===null||a.order===undefined) ? 1e15 : a.order;
+      const bo = (b.order===null||b.order===undefined) ? 1e15 : b.order;
+      if (ao !== bo) return ao - bo;
+      return (a.fileName || a.src).localeCompare(b.fileName || b.src);
+    });
+if(items.length === 0){ emptyBox.style.display = "block"; return; }
+
+    for(const it of items){
+      const card = document.createElement("div");
+      card.className = "gitem";
+
+      const img = document.createElement("img");
+      img.src = it.src + bust();
+
+      const fileName = it.src.replace(IMG_DIR,"");
+      const opis = OPISI[fileName];
+
+      const cap = document.createElement("div");
+      cap.className = "gcap";
+      cap.innerHTML = `
+        <div class="gcap-head">
+          <b>${it.caption}</b>
+          <span>${fileName}</span>
+        </div>
+        ${opis ? `<div class="gdesc">${opis}</div>` : ""}
+      `;
+
+      card.onclick = ()=>openLightbox(img.src);
+
+      card.appendChild(img);
+      card.appendChild(cap);
+      galleryGrid.appendChild(card);
+    }
+  }
+
+ (async ()=>{
+  const usedJson = await loadGalleryJson();
+  if(!usedJson){
+    await discover(); // fallback: stari način
+  }
+  renderGroupPills();
+  renderSubPills();
+  renderGallery();
+})();
+
+</script>
+</body>
+</html>
