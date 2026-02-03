@@ -4,6 +4,16 @@
 <head>
   <meta charset="utf-8">
   <title data-i18n="meta_title">OPG MEŽNARIĆ – Med i lješnjaci | Sračinec</title>
+  <!-- OpenGraph (WhatsApp/Facebook preview) -->
+  <!-- Favicon (ikona u tabu) -->
+<link rel="icon" type="image/png" href="slike/hero.png">
+<meta property="og:title" content="OPG MEŽNARIĆ – Sračinec">
+<meta property="og:description" content="Domaći med i lješnjaci iz vlastite proizvodnje. Kvaliteta, tradicija i priroda.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bmeznaric-stack.github.io/opg-meznaric-web/">
+<meta property="og:image" content="https://bmeznaric-stack.github.io/opg-meznaric-web/slike/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
 :root{
@@ -300,6 +310,11 @@
 .gcap{display:flex; flex-direction:column; gap:6px;}
 .gcap-head{display:flex; justify-content:space-between; gap:10px;}
 .gdesc{font-size:13px; line-height:1.5; color:#4f463d;}
+    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;
+  background:rgba(255,255,255,.75);border:1px solid rgba(120,90,50,.18);color:#2b231a;
+  text-decoration:none;font-weight:700}
+.btn:hover{transform:translateY(-1px)}
   </style>
 </head>
 <body>
@@ -416,6 +431,12 @@
   </section>
 
   <section id="kontakt" class="section anchor">
+    <div class="ctaRow">
+  <a class="btn" href="tel:+385913507180">📞 Božidar</a>
+  <a class="btn" href="tel:+385913611510">📞 Nada</a>
+  <a class="btn" href="mailto:bmeznaric@gmail.com">✉️ Email</a>
+</div>
+
     <h2 data-i18n="contact_title">Kontakt</h2>
     <p class="muted" data-i18n="contact_note">Slobodno nazovite ili pošaljite upit e-mailom.</p>
 
@@ -575,7 +596,7 @@
   const resetBtn = document.getElementById("resetBtn");
 
   function applyHero(x, y, z){
-    root.style.setProperty("--hero-x", x + "%");
+    root..setProperty("--hero-x", x + "%");
     root.style.setProperty("--hero-y", y + "%");
     root.style.setProperty("--hero-zoom", (z/100).toFixed(2));
     valX.textContent = x + "%";
