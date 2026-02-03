@@ -1,5 +1,35 @@
 {
-  "med_pcelinjak_01.png": "Naši pčelinjaci nalaze se u prirodnom okruženju, daleko od zagađenja.",
-  "med_vrcanje_01.png": "Vrcanje meda provodimo tradicionalno, bez zagrijavanja.",
-  "ljesnjaci_berba_04.png": "Ručna berba lješnjaka u optimalnoj zrelosti plodova."
+  "items": [
+    {
+      "file": "med_pcelinjak_01.png",
+      "group": "med",
+      "sub": "pcelinjak",
+      "order": 1,
+      "title_hr": "MED • Pčelinjak",
+      "title_en": "HONEY • Apiary"
+    },
+    {
+      "file": "med_vrcanje_01.png",
+      "group": "med",
+      "sub": "vrcanje",
+      "order": 2,
+      "title_hr": "MED • Vrcanje",
+      "title_en": "HONEY • Extraction"
+    },
+    {
+      "file": "ljesnjaci_berba_01.png",
+      "group": "ljesnjaci",
+      "sub": "berba",
+      "order": 1,
+      "title_hr": "LJEŠNJACI • Berba",
+      "title_en": "HAZELNUTS • Harvest"
+    },
+    {
+      "file": "proba_slika.jpg",
+      "group": "med",
+      "sub": "pokloni",
+      "order": 3
+    }
+  ]
 }
+
