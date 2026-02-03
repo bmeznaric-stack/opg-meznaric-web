@@ -1,35 +1,17 @@
 {
   "items": [
-    {
-      "file": "med_pcelinjak_01.jpg",
-      "group": "med",
-      "sub": "pcelinjak",
-      "order": 1,
-      "title_hr": "MED • Pčelinjak",
-      "title_en": "HONEY • Apiary"
-    },
-    {
-      "file": "med_vrcanje_01.jpg",
-      "group": "med",
-      "sub": "vrcanje",
-      "order": 2,
-      "title_hr": "MED • Vrcanje",
-      "title_en": "HONEY • Extraction"
-    },
-    {
-      "file": "ljesnjaci_berba_04.png",
-      "group": "ljesnjaci",
-      "sub": "berba",
-      "order": 1,
-      "title_hr": "LJEŠNJACI • Berba",
-      "title_en": "HAZELNUTS • Harvest"
-    }
-{
-  "file": "bozicni_paket.jpg",
-  "group": "proba",
-  "sub": "slike",
-  "order": 3
-}
+    { "file": "med_pcelinjak_01.png", "group": "med", "sub": "pcelinjak", "order": 1, "title_hr": "MED • Pčelinjak", "title_en": "HONEY • Apiary" },
+    { "file": "med_vrcanje_01.png", "group": "med", "sub": "vrcanje", "order": 2, "title_hr": "MED • Vrcanje", "title_en": "HONEY • Extraction" },
 
+    { "file": "med_pokloni_01.png", "group": "med", "sub": "pokloni", "order": 10, "title_hr": "MED • Pokloni", "title_en": "HONEY • Gifts" },
+    { "file": "med_pokloni_02.png", "group": "med", "sub": "pokloni", "order": 11, "title_hr": "MED • Pokloni", "title_en": "HONEY • Gifts" },
+    { "file": "med_pokloni_03.png", "group": "med", "sub": "pokloni", "order": 12, "title_hr": "MED • Pokloni", "title_en": "HONEY • Gifts" },
+    { "file": "med_pokloni_04.png", "group": "med", "sub": "pokloni", "order": 13, "title_hr": "MED • Pokloni", "title_en": "HONEY • Gifts" },
+    { "file": "med_pokloni_05.png", "group": "med", "sub": "pokloni", "order": 14, "title_hr": "MED • Pokloni", "title_en": "HONEY • Gifts" },
+    { "file": "med_pokloni_06.png", "group": "med", "sub": "pokloni", "order": 15, "title_hr": "MED • Pokloni", "title_en": "HONEY • Gifts" },
+
+    { "file": "ljesnjaci_berba_01.png", "group": "ljesnjaci", "sub": "berba", "order": 1, "title_hr": "LJEŠNJACI • Berba", "title_en": "HAZELNUTS • Harvest" },
+
+    { "file": "proba_slika.jpg", "group": "med", "sub": "razno", "order": 99 }
   ]
 }
